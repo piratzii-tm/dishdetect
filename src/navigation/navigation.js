@@ -6,14 +6,13 @@ import {
   HomeScreen,
   RecipesNameScreen,
 } from "./screens/app";
-import { LoginScreen, RegisterScreen, VerifyMailScreen } from "./screens/login";
+import { LoginScreen, VerifyMailScreen } from "./screens/login";
 
 const Stack = createNativeStackNavigator();
 
 const LoginStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="LoginStack" component={LoginScreen} />
-    <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
     <Stack.Screen name="VerifyMailScreen" component={VerifyMailScreen} />
   </Stack.Navigator>
 );
@@ -28,7 +27,7 @@ const AppStack = () => (
 );
 
 const Navigation = () => {
-  const isLogin = true;
+  const isLogin = false;
   return (
     <NavigationContainer>
       {isLogin ? <AppStack /> : <LoginStack />}
