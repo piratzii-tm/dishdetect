@@ -1,14 +1,15 @@
 import { View, Image, Text } from "react-native-ui-lib";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { Colors } from "../constants";
+import { useNavigation } from "@react-navigation/native";
 
-export const KRecipeNameCard = ({ title }) => {
+export const KRecipeNameCard = ({ recipe }) => {
+  const { navigate } = useNavigation();
   const { width } = useWindowDimensions();
 
   return (
     <TouchableOpacity
-      // TODO: Implement the onPress card logic
-      onPress={() => {}}
+      onPress={() => navigate("RecipeScreen", { recipe })}
       style={{
         backgroundColor: Colors.coconut_cream,
         width: width * 0.8,
@@ -27,7 +28,7 @@ export const KRecipeNameCard = ({ title }) => {
         />
       </View>
       <View flex>
-        <Text normalText>{title}</Text>
+        <Text normalText>{recipe.title}</Text>
       </View>
     </TouchableOpacity>
   );

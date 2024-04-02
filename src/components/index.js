@@ -1,3 +1,4 @@
+export * from "./KCheckIncredients";
 export * from "./KContainer";
 export * from "./KButton";
 export * from "./KRecipeNameCard";
