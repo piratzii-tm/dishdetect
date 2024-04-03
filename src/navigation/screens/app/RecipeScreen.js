@@ -60,7 +60,7 @@ export const RecipeScreen = () => {
           <View gap-5>
             {PARAM_RECIPE.recipe.map((item, index) => {
               return (
-                <Text smallText black>
+                <Text key={PARAM_RECIPE.recipe.indexOf(item)} smallText black>
                   {`${index + 1}. ${item}`}
                 </Text>
               );
