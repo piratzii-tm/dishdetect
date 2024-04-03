@@ -5,11 +5,16 @@ import { KCheckIncredients } from "../../../components";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useContext, useState } from "react";
+import { TheContext } from "../../../constants/contexts/TheContext";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
   const route = useRoute();
   const { goBack } = useNavigation();
+
+  const { shopList, setShopList } = useContext(TheContext);
+  const [currentList, setCurrentList] = useState([]);
 
   const PARAM_RECIPE = route.params.recipe;
 
@@ -33,26 +38,55 @@ export const RecipeScreen = () => {
           <Text normalText black>
             Incredients:
           </Text>
-          {/*TODO: implement the Select all logic*/}
-          <TouchableOpacity onPress={() => {}}>
-            <Text smallText black style={{ alignSelf: "flex-end" }}>
-              Select all
-            </Text>
-          </TouchableOpacity>
-          <KSpacer />
+          <KSpacer height={20} />
 
           <View center gap-10>
             {PARAM_RECIPE.ingredients.map((item) => {
+              const [isChecked, setChecked] = useState(false);
+
               return (
                 <KCheckIncredients
                   key={PARAM_RECIPE.ingredients.indexOf(item)}
                   text={`${item.quantity} ${item.unit} ${item.name}`}
+                  isChecked={isChecked}
+                  setChecked={setChecked}
+                  onValueChange={() => {
+                    if (isChecked) {
+                      setCurrentList(
+                        currentList.filter(
+                          (element) => element.name !== item.name,
+                        ),
+                      );
+                    } else {
+                      setCurrentList((prev) => [
+                        ...prev,
+                        { name: item.name, amount: 1 },
+                      ]);
+                    }
+                    setChecked(!isChecked);
+                  }}
                 />
               );
             })}
-            {/*TODO: Implement the add button logic*/}
-            <KButton text={"Add"} onPress={() => {}} />
+            <KSpacer />
+            <KButton
+              text={"Add"}
+              onPress={() => {
+                if (currentList.length > 0) {
+                  currentList.forEach((item) => {
+                    if (
+                      !shopList.find(
+                        (incredient) => incredient.name === item.name,
+                      )
+                    ) {
+                      setShopList((prev) => [...prev, item]);
+                    }
+                  });
+                }
+              }}
+            />
           </View>
+          <KSpacer height={20} />
           <Text normalText black>
             Recipe:
           </Text>
