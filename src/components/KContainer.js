@@ -11,29 +11,28 @@ export const KContainer = ({ children, scrollable = true }) => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
-      <View flex bg-serenade>
-        <ImageBackground
-          source={require("../../assets/photos/background.png")}
-          resizeMode="cover"
-          style={{ flex: 1, justifyContent: "center" }}
-        >
-          {scrollable ? (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingTop: insets.top,
-                paddingBottom: insets.bottom,
-              }}
-            >
-              {children}
-            </ScrollView>
-          ) : (
-            <View flex style={{ paddingTop: insets.top }}>
-              {children}
-            </View>
-          )}
-        </ImageBackground>
-      </View>
+      <ImageBackground
+        source={require("../../assets/photos/background.png")}
+        resizeMode="cover"
+        style={{ flex: 1 }}
+      >
+        {scrollable ? (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom,
+            }}
+          >
+            {children}
+          </ScrollView>
+        ) : (
+          <View flex style={{ paddingTop: insets.top }}>
+            {children}
+          </View>
+        )}
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };

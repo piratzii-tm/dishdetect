@@ -8,7 +8,7 @@ import { Colors } from "../../../constants";
 import { useWindowDimensions } from "react-native";
 import { useState } from "react";
 
-export const LoginScreen = () => {
+export const AuthScreen = () => {
   const { height, width } = useWindowDimensions();
 
   const [isLoginPage, setIsLoginPage] = useState(true);
@@ -19,10 +19,10 @@ export const LoginScreen = () => {
 
   return (
     <KContainer>
-      <View center>
+      <View center flex>
         <View
           center
-          padding={20}
+          padding-20
           height={height * 0.8}
           width={width * 0.8}
           style={{
@@ -84,7 +84,7 @@ export const LoginScreen = () => {
           <KSpacer height={30} />
           <KButton
             text={isLoginPage ? "Login" : "Register"}
-            //TODO: Implement the login and register logic
+            //TODO: Implement the auth and register logic
             onPress={isLoginPage ? () => {} : () => {}}
             color={Colors.persian_red}
           />

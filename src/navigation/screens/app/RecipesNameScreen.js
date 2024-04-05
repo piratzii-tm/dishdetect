@@ -53,8 +53,8 @@ export const RecipesNameScreen = () => {
         <FontAwesomeIcon icon={faArrowLeft} size={20} />
       </TouchableOpacity>
       <View center gap-20>
-        {recipes.map((repice) => (
-          <KRecipeNameCard key={recipes.indexOf(repice)} recipe={repice} />
+        {recipes.map((recipe, index) => (
+          <KRecipeNameCard key={index} recipe={recipe} />
         ))}
       </View>
     </KContainer>

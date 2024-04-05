@@ -12,7 +12,7 @@ export const VerifyMailScreen = () => {
 
   return (
     <KContainer>
-      <View center>
+      <View center flex>
         <View
           center
           padding-20
