@@ -6,13 +6,13 @@ import {
   HomeScreen,
   RecipesNameScreen,
 } from "./screens/app";
-import { LoginScreen, VerifyMailScreen } from "./screens/login";
+import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 
 const Stack = createNativeStackNavigator();
 
 const LoginStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="LoginStack" component={LoginScreen} />
+    <Stack.Screen name="LoginStack" component={AuthScreen} />
     <Stack.Screen name="VerifyMailScreen" component={VerifyMailScreen} />
   </Stack.Navigator>
 );

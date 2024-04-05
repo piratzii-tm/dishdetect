@@ -1,19 +1,19 @@
 import { Text, View } from "react-native-ui-lib";
 import { KButton, KContainer, KSpacer } from "../../../components";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
-import { KCheckIncredients } from "../../../components";
+import { KCheckIngredients } from "../../../components";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useContext, useState } from "react";
-import { TheContext } from "../../../constants/contexts/TheContext";
+import { ShoppingListContext } from "../../../constants/contexts/ShoppingListContext";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
   const route = useRoute();
   const { goBack } = useNavigation();
 
-  const { shopList, setShopList } = useContext(TheContext);
+  const { shopList, setShopList } = useContext(ShoppingListContext);
   const [currentList, setCurrentList] = useState([]);
 
   const PARAM_RECIPE = route.params.recipe;
@@ -29,14 +29,14 @@ export const RecipeScreen = () => {
       <View center>
         <View
           bg-coconut_cream
-          padding={20}
+          padding-20
           style={{
             width: width * 0.8,
             borderRadius: 20,
           }}
         >
           <Text normalText black>
-            Incredients:
+            Ingredients:
           </Text>
           <KSpacer height={20} />
 
@@ -45,7 +45,7 @@ export const RecipeScreen = () => {
               const [isChecked, setChecked] = useState(false);
 
               return (
-                <KCheckIncredients
+                <KCheckIngredients
                   key={PARAM_RECIPE.ingredients.indexOf(item)}
                   text={`${item.quantity} ${item.unit} ${item.name}`}
                   isChecked={isChecked}
@@ -76,7 +76,7 @@ export const RecipeScreen = () => {
                   currentList.forEach((item) => {
                     if (
                       !shopList.find(
-                        (incredient) => incredient.name === item.name,
+                        (ingredient) => ingredient.name === item.name,
                       )
                     ) {
                       setShopList((prev) => [...prev, item]);

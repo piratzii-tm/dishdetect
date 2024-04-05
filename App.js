@@ -1,18 +1,16 @@
 import { configTheme } from "./src/constants";
 import { ExpoFonts } from "./src/wrappers";
 import { Navigation } from "./src/navigation";
-import { useState } from "react";
-import { TheContext } from "./src/constants/contexts/TheContext";
+import { ShoppingProviderWrapper } from "./src/wrappers/ShoppingProviderWrapper";
 
 configTheme();
-export default function App() {
-  const [shopList, setShopList] = useState([]);
 
+export default function App() {
   return (
-    <TheContext.Provider value={{ shopList, setShopList }}>
+    <ShoppingProviderWrapper>
       <ExpoFonts>
         <Navigation />
       </ExpoFonts>
-    </TheContext.Provider>
+    </ShoppingProviderWrapper>
   );
 }

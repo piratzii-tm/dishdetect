@@ -1,10 +1,10 @@
 import { Text, View } from "react-native-ui-lib";
-import { TheContext } from "../../../constants/contexts/TheContext";
+import { ShoppingListContext } from "../../../constants/contexts/ShoppingListContext";
 import { useContext } from "react";
 
 export const CartScreen = () => {
   //TODO: PENTRU ANDRA: Acesta este contextul
-  const { shopList, setShopList } = useContext(TheContext);
+  const { shopList, setShopList } = useContext(ShoppingListContext);
 
   //TODO:  De forma asta este contextul, doar ca initial e gol
   const auxShopList = [

@@ -2,7 +2,7 @@ import { Text, View } from "react-native-ui-lib";
 import Checkbox from "expo-checkbox";
 import { Colors } from "../constants";
 
-export const KCheckIncredients = ({ text, isChecked, onValueChange }) => {
+export const KCheckIngredients = ({ text, isChecked, onValueChange }) => {
   return (
     <View row gap-5 style={{ width: "95%" }}>
       <Checkbox

@@ -1,4 +1,4 @@
-export * from "./KCheckIncredients";
+export * from "./KCheckIngredients";
 export * from "./KContainer";
 export * from "./KButton";
 export * from "./KModal";
