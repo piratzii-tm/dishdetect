@@ -6,16 +6,33 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons/faEnvelope";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { Colors } from "../../../constants";
 import { useWindowDimensions } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { handleRegistration } from "../../../backend/authentication/handleRegistration";
+import { useNavigation } from "@react-navigation/native";
+import { emailjs } from "../../../constants/api/emailjs";
 
 export const AuthScreen = () => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const { height, width } = useWindowDimensions();
+  const { navigate } = useNavigation();
 
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [username, setUsername] = useState("");
+
+  const [securityCode, setSecurityCode] = useState("");
+  useEffect(() => {
+    setSecurityCode(
+      (
+        Math.floor(Math.random() * 10) * 1000 +
+        Math.floor(Math.random() * 10) * 100 +
+        Math.floor(Math.random() * 10) * 10 +
+        Math.floor(Math.random() * 10)
+      ).toString(),
+    );
+  }, []);
 
   return (
     <KContainer>
@@ -84,8 +101,48 @@ export const AuthScreen = () => {
           <KSpacer height={30} />
           <KButton
             text={isLoginPage ? "Login" : "Register"}
-            //TODO: Implement the auth and register logic
-            onPress={isLoginPage ? () => {} : () => {}}
+            onPress={() => {
+              if (!isLoginPage) {
+                if (
+                  password === verifyPassword &&
+                  password.length >= 6 &&
+                  username.length > 0 &&
+                  regex.test(email)
+                ) {
+                  let emailData = {
+                    service_id: emailjs.email_service_id,
+                    template_id: emailjs.email_template_id,
+                    user_id: emailjs.email_public_key,
+                    template_params: {
+                      email: email,
+                      body: securityCode,
+                    },
+                  };
+                  // we send the email
+                  fetch("https://api.emailjs.com/api/v1.0/email/send", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(emailData),
+                  })
+                    .then((res) => {
+                      console.log(
+                        "Send security code: " + securityCode + " with success",
+                      );
+                      navigate("VerifyMailScreen", {
+                        email,
+                        password,
+                        username,
+                        securityCode,
+                      });
+                    })
+                    .catch((err) => console.log(err));
+                } else {
+                  alert("Verify your credentials, something went wrong");
+                }
+              }
+            }}
             color={Colors.persian_red}
           />
           <KSpacer height={20} />

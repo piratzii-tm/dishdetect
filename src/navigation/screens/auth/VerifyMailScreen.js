@@ -3,12 +3,28 @@ import { KButton, KContainer, KSpacer } from "../../../components";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import { Colors } from "../../../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { emailjs } from "../../../constants/api/emailjs";
+import { handleRegistration } from "../../../backend/authentication/handleRegistration";
 
-export const VerifyMailScreen = () => {
+export const VerifyMailScreen = ({ route }) => {
   const { height, width } = useWindowDimensions();
 
   const [passCode, setPassCode] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  const [codeResent, setCodeResent] = useState(false);
+
+  useEffect(() => {
+    setSecurityCode(
+      (
+        Math.floor(Math.random() * 10) * 1000 +
+        Math.floor(Math.random() * 10) * 100 +
+        Math.floor(Math.random() * 10) * 10 +
+        Math.floor(Math.random() * 10)
+      ).toString(),
+    );
+  }, []);
 
   return (
     <KContainer>
@@ -35,9 +51,8 @@ export const VerifyMailScreen = () => {
             />
             <KSpacer height={30} />
 
-            {/*TODO put the user mail*/}
             <Text smallText black center>
-              We’ve sent you a code to the user@gmail.com email address!
+              We’ve sent you a code to the {route.params.email} email address!
             </Text>
             <KSpacer height={20} />
             <OtpInput
@@ -51,18 +66,58 @@ export const VerifyMailScreen = () => {
             <Text smallText black>
               Didn’t received anything?{" "}
             </Text>
-            {/*TODO: Send again verify code*/}
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={() => {
+                setCodeResent(true);
+                setPassCode("");
+
+                let emailData = {
+                  service_id: emailjs.email_service_id,
+                  template_id: emailjs.email_template_id,
+                  user_id: emailjs.email_public_key,
+                  template_params: {
+                    email: route.params.email,
+                    body: securityCode,
+                  },
+                };
+                // we send the email
+                fetch("https://api.emailjs.com/api/v1.0/email/send", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(emailData),
+                })
+                  .then((res) => {
+                    console.log(
+                      "Send security code: " + securityCode + " with success",
+                    );
+                  })
+                  .catch((err) => console.log(err));
+              }}
+            >
               <Text smallText persian_red>
                 Send again
               </Text>
             </TouchableOpacity>
           </View>
-          {/*TODO: Verify logic*/}
           <KButton
             text={"Verify"}
             color={Colors.persian_red}
-            onPress={() => {}}
+            onPress={() => {
+              if (
+                (!codeResent ? route.params.securityCode : securityCode) ===
+                passCode
+              ) {
+                handleRegistration({
+                  email: route.params.email,
+                  password: route.params.password,
+                  username: route.params.username,
+                });
+              } else {
+                alert("Something went wrong");
+              }
+            }}
           />
         </View>
       </View>

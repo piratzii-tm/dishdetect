@@ -9,6 +9,7 @@ export const KTextInput = ({ icon, placeholder, text, setText }) => {
       <View row centerV padding-3 gap-5>
         <FontAwesomeIcon icon={icon} size={25} color={Colors.black} />
         <TextInput
+          autoCapitalize={"none"}
           placeholder={placeholder}
           value={text}
           onChangeText={setText}
