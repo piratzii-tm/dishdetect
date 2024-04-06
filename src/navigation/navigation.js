@@ -7,6 +7,9 @@ import {
   RecipesNameScreen,
 } from "./screens/app";
 import { AuthScreen, VerifyMailScreen } from "./screens/auth";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../backend/config";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,10 +30,17 @@ const AppStack = () => (
 );
 
 const Navigation = () => {
-  const isLogin = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(user !== null);
+    });
+  }, []);
+
   return (
     <NavigationContainer>
-      {isLogin ? <AppStack /> : <LoginStack />}
+      {isLoggedIn ? <AppStack /> : <LoginStack />}
     </NavigationContainer>
   );
 };
