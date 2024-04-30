@@ -1,12 +1,16 @@
 import { Text, View } from "react-native-ui-lib";
-import { KButton, KContainer, KSpacer } from "../../../components";
+import {
+  KButton,
+  KContainer,
+  KSpacer,
+  KCheckIngredients,
+} from "../../../components";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
-import { KCheckIngredients } from "../../../components";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useContext, useState } from "react";
-import { ShoppingListContext } from "../../../constants/contexts/ShoppingListContext";
+import { ShoppingListContext } from "../../../constants";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();

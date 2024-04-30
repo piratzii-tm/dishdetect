@@ -12,7 +12,7 @@ export const handleRegistration = ({ email, password, username }) => {
         shopping_list: ["IGNORE"],
       };
 
-      const userRef = ref(database, credentials.user.uid);
+      const userRef = ref(database, `/users/${credentials.user.uid}`);
       set(userRef, newUserData)
         .then(() => console.log("RTDB data added with success."))
         .catch((err) => console.log(err));

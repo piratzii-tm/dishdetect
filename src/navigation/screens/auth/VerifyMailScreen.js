@@ -2,11 +2,9 @@ import { Text, View, Image } from "react-native-ui-lib";
 import { KButton, KContainer, KSpacer } from "../../../components";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
-import { Colors } from "../../../constants";
+import { Colors, emailjs } from "../../../constants";
 import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { emailjs } from "../../../constants/api/emailjs";
-import { handleRegistration } from "../../../backend/authentication/handleRegistration";
+import { handleRegistration } from "../../../backend";
 
 export const VerifyMailScreen = ({ route }) => {
   const { height, width } = useWindowDimensions();
