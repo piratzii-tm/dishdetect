@@ -6,7 +6,12 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native-ui-lib";
 
-export const KContainer = ({ children, scrollable = true }) => {
+export const KContainer = ({
+  children,
+  scrollable = true,
+  safeArea = true,
+  style = undefined,
+}) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -21,8 +26,8 @@ export const KContainer = ({ children, scrollable = true }) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               flexGrow: 1,
-              paddingTop: insets.top,
-              paddingBottom: insets.bottom,
+              paddingTop: safeArea && insets.top,
+              paddingBottom: safeArea && insets.bottom,
             }}
           >
             {children}

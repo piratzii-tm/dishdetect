@@ -1,5 +1,5 @@
 import { Text, View } from "react-native-ui-lib";
-import { ShoppingListContext } from "../../../constants/contexts/ShoppingListContext";
+import { ShoppingListContext } from "../../../constants";
 import { useContext } from "react";
 
 export const CartScreen = () => {

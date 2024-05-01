@@ -7,8 +7,8 @@ export const KButton = ({ text = "press", onPress, color = Colors.white }) => {
     <TouchableOpacity
       onPress={onPress}
       style={{
-        height: 50,
-        width: 100,
+        padding: 15,
+        paddingHorizontal: 30,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: color,

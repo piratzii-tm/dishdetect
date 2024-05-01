@@ -1,17 +1,182 @@
 import { Text, View } from "react-native-ui-lib";
-import { KModal } from "../../../components";
+import { KContainer, KModal } from "../../../components";
 import { useState } from "react";
+import { Camera, CameraType } from "expo-camera";
+import {
+  Button,
+  ImageBackground,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Colors } from "../../../constants";
+import { handleStorage } from "../../../backend";
+import { handlePictureProcessing } from "../../../constants/helpers";
+import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 export const HomeScreen = () => {
-  // TODO: Implemente de modal button, and onPress => setModalVisible(true)
+  // TODO: Implement the modal button, and onPress => setModalVisible(true)
   const [modalVisible, setModalVisible] = useState(false);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [cameraRef, setCameraRef] = useState(null);
+
+  const { top, bottom } = useSafeAreaInsets();
+  const { height, width } = useWindowDimensions();
+  const { navigate } = useNavigation();
+
+  if (!permission) {
+    return (
+      <KContainer>
+        <Text>Welcome to DishDetect</Text>
+      </KContainer>
+    );
+  }
+
+  if (!permission.granted) {
+    return (
+      <KContainer>
+        <View flex center>
+          <Text style={{ textAlign: "center" }}>
+            We need your permission to show the camera
+          </Text>
+          <Button onPress={requestPermission} title="grant permission" />
+        </View>
+      </KContainer>
+    );
+  }
+
+  const handlePictureTaking = () => {
+    if (!isProcessing) {
+      cameraRef.takePictureAsync().then((response) => {
+        setIsProcessing(true);
+        const imageUri = response.uri;
+        handleStorage({ uri: imageUri }).then((imageStorageUrl) => {
+          handlePictureProcessing({ imageUrl: imageStorageUrl }).then(
+            (response) => {
+              console.log("Successfully processed the image!");
+              let dishes = response.split("@");
+              dishes = dishes.map((dish) => {
+                dish = dish.split("#");
+                const title = dish[1].trim();
+                const ingredients = dish[2].split(",").map((ingredient) => {
+                  ingredient = ingredient.split("$");
+                  try {
+                    return {
+                      quantity: ingredient[0].trim(),
+                      name: ingredient[1].trim(),
+                    };
+                  } catch (err) {}
+                });
+                const steps = dish[3].split("|").map((step) => step.trim());
+                return {
+                  title,
+                  ingredients,
+                  steps,
+                };
+              });
+              setIsProcessing(false);
+              navigate("RecipesNameScreen", { dishes: dishes });
+            },
+          );
+        });
+      });
+    }
+  };
+
+  const ProcessingView = () => (
+    <View
+      resizeMode="cover"
+      style={{
+        flex: 1,
+        width: width,
+        height: height,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        zIndex: 1,
+        backgroundColor: Colors.coconut_cream,
+      }}
+    >
+      <LottieView
+        source={require("../../../../assets/animations/cook1.json")}
+        autoPlay
+        loop
+        style={{
+          height: "40%",
+          width: "60%",
+        }}
+      />
+      <Text
+        style={{
+          fontFamily: "DMSans-Regular",
+          fontSize: 28,
+          color: Colors.black,
+          textAlign: "center",
+          paddingHorizontal: 20,
+        }}
+      >
+        {
+          [
+            "Stirring up mischief... ETA: Tasty results!",
+            "Cooking up chaos... Patience, it's worth the bytes!",
+            "Mixing up magic... Hungry yet?",
+          ][Math.floor(Math.random() * 3)]
+        }
+      </Text>
+    </View>
+  );
 
   return (
-    <View flex center>
-      {/*This is the modal, don't remove it*/}
-      <KModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-
-      <Text>Home page</Text>
-    </View>
+    <KContainer safeArea={false}>
+      <Camera
+        style={{
+          flex: 1,
+        }}
+        type={CameraType.back}
+        autoFocus={true}
+        ref={(ref) => setCameraRef(ref)}
+      >
+        {isProcessing && <ProcessingView />}
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            paddingTop: top,
+          }}
+        >
+          {/*TODO add the top buttons inside this view*/}
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 80,
+            width: 80,
+            borderRadius: 50,
+            backgroundColor: Colors.white,
+            opacity: 0.95,
+            position: "absolute",
+            bottom: bottom + 20,
+            alignSelf: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={handlePictureTaking}
+        >
+          <View
+            style={{
+              height: 70,
+              width: 70,
+              borderRadius: 50,
+              borderColor: Colors.black,
+              borderWidth: 1,
+              backgroundColor: Colors.white,
+            }}
+          />
+        </TouchableOpacity>
+        <KModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      </Camera>
+    </KContainer>
   );
 };

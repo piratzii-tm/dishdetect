@@ -10,9 +10,10 @@ export const handleRegistration = ({ email, password, username }) => {
         email,
         userID: credentials.user.uid,
         shopping_list: ["IGNORE"],
+        saved_recipes: ["IGNORE"],
       };
 
-      const userRef = ref(database, credentials.user.uid);
+      const userRef = ref(database, `/users/${credentials.user.uid}`);
       set(userRef, newUserData)
         .then(() => console.log("RTDB data added with success."))
         .catch((err) => console.log(err));

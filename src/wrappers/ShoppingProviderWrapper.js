@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShoppingListContext } from "../constants/contexts/ShoppingListContext";
+import { ShoppingListContext } from "../constants";
 
 export const ShoppingProviderWrapper = ({ children }) => {
   const [shopList, setShopList] = useState([]);
