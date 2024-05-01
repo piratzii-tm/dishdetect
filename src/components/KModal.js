@@ -5,7 +5,14 @@ import { Colors } from "../constants";
 import { KSpacer } from "./KSpacer";
 import { KButton } from "./KButton";
 
-export const KModal = ({ modalVisible = false, setModalVisible }) => {
+export const KModal = ({
+  modalVisible = false,
+  setModalVisible,
+  title,
+  placeholder,
+  image,
+  buttonText,
+}) => {
   const { width } = useWindowDimensions();
 
   const [text, setText] = useState("");
@@ -29,18 +36,14 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
           bg-coconut_cream
           style={{ borderRadius: 10 }}
         >
-          <Image
-            source={require("../../assets/photos/tableware.png")}
-            height={70}
-            width={70}
-          />
+          <Image source={image} height={70} width={70} />
           <Text normalText black center>
-            What would you like to cook today?
+            {title}
           </Text>
           <TextInput
             value={text}
             onChangeText={setText}
-            placeholder={"Write recipe name..."}
+            placeholder={placeholder}
             style={{
               width: "90%",
               padding: 15,
@@ -51,10 +54,10 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
           <KSpacer height={30} />
           {/*TODO: Implemente the recipe button press*/}
           <KButton
-            text={"Recipe"}
+            text={buttonText}
             color={Colors.persian_red}
             onPress={() => {
-              setModalVisible(!modalVisible);
+              setModalVisible(false);
             }}
           />
         </View>

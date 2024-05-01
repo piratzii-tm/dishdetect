@@ -10,6 +10,7 @@ import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../backend/config";
+import { ProfileScreen } from "./screens/app/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const AppStack = () => (
     <Stack.Screen name="RecipesNameScreen" component={RecipesNameScreen} />
     <Stack.Screen name="CartScreen" component={CartScreen} />
     <Stack.Screen name="RecipeScreen" component={RecipeScreen} />
+    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
   </Stack.Navigator>
 );
 
