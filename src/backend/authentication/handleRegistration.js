@@ -10,6 +10,7 @@ export const handleRegistration = ({ email, password, username }) => {
         email,
         userID: credentials.user.uid,
         shopping_list: ["IGNORE"],
+        saved_recipes: ["IGNORE"],
       };
 
       const userRef = ref(database, `/users/${credentials.user.uid}`);
