@@ -9,9 +9,9 @@ import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useContext, useState } from "react";
-import { ShoppingListContext } from "../../../constants";
-import { handleRecipeSave } from "../../../backend";
+import { useContext, useEffect, useState } from "react";
+import { Colors, ShoppingListContext } from "../../../constants";
+import { findSavedRecipe, handleRecipeSave } from "../../../backend";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
@@ -20,8 +20,15 @@ export const RecipeScreen = () => {
 
   const { shopList, setShopList } = useContext(ShoppingListContext);
   const [currentList, setCurrentList] = useState([]);
+  const [recipeSaved, setRecipeSaved] = useState(false);
 
   const PARAM_RECIPE = route.params.recipe;
+
+  useEffect(() => {
+    findSavedRecipe({ recipe: PARAM_RECIPE }).then((response) =>
+      setRecipeSaved(response),
+    );
+  }, []);
 
   return (
     <KContainer>
@@ -107,10 +114,18 @@ export const RecipeScreen = () => {
           </View>
         </View>
 
-        <View style={{ paddingTop: 10 }}>
+        <View
+          style={{
+            paddingTop: 10,
+          }}
+        >
           <KButton
-            text={"Save recipe"}
-            onPress={() => handleRecipeSave({ recipe: PARAM_RECIPE })}
+            color={recipeSaved ? Colors.gray : Colors.white}
+            text={!recipeSaved ? "Save recipe" : "Saved"}
+            onPress={() => {
+              handleRecipeSave({ recipe: PARAM_RECIPE });
+              setRecipeSaved(true);
+            }}
           />
         </View>
       </View>

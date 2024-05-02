@@ -2,7 +2,7 @@ import { Text } from "react-native-ui-lib";
 import { TouchableOpacity } from "react-native";
 import { Colors } from "../constants";
 
-export const KButton = ({ text = "press", onPress, color = Colors.white }) => {
+export const KButton = ({ text = "press", onPress, color }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -11,7 +11,7 @@ export const KButton = ({ text = "press", onPress, color = Colors.white }) => {
         paddingHorizontal: 30,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: color,
+        backgroundColor: color ?? Colors.white,
         borderRadius: 10,
 
         shadowColor: "#000",
@@ -28,7 +28,7 @@ export const KButton = ({ text = "press", onPress, color = Colors.white }) => {
       <Text
         smallText
         style={
-          color === Colors.white
+          (color ?? Colors.white) === Colors.white
             ? { color: Colors.black }
             : { color: Colors.white }
         }

@@ -20,7 +20,7 @@ import LottieView from "lottie-react-native";
 
 export const HomeScreen = () => {
   // TODO: Implement the modal button, and onPress => setModalVisible(true)
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   const [isProcessing, setIsProcessing] = useState(false);

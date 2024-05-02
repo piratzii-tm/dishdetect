@@ -1,7 +1,7 @@
 export const handleSuggestionByTextResponse = ({ response }) => {
   console.log(response);
   const dish = response.split("#");
-  const ingredients = dish[1].split(",").map((ingredient) => {
+  let ingredients = dish[1].split(",").map((ingredient) => {
     ingredient = ingredient.split("$");
     try {
       return {
@@ -10,6 +10,7 @@ export const handleSuggestionByTextResponse = ({ response }) => {
       };
     } catch (err) {}
   });
+  ingredients = ingredients.filter((ingredient) => ingredient !== undefined);
   const steps = dish[2].split("|").map((step) => step.trim());
   console.log({
     ingredients,

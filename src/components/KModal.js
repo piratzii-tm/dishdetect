@@ -68,8 +68,8 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
           />
           <KSpacer height={30} />
           <KButton
-            text={"Recipe"}
-            color={Colors.persian_red}
+            text={isProcessing ? "Loading..." : "Recipe"}
+            color={isProcessing ? Colors.gray : Colors.persian_red}
             onPress={() => {
               if (!isProcessing) {
                 setIsProcessing(true);

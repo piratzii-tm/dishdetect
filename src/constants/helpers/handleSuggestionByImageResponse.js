@@ -3,7 +3,7 @@ export const handleSuggestionByImageResponse = ({ response }) => {
   dishes = dishes.map((dish) => {
     dish = dish.split("#");
     const title = dish[1].trim();
-    const ingredients = dish[2].split(",").map((ingredient) => {
+    let ingredients = dish[2].split(",").map((ingredient) => {
       ingredient = ingredient.split("$");
       try {
         return {
@@ -12,6 +12,7 @@ export const handleSuggestionByImageResponse = ({ response }) => {
         };
       } catch (err) {}
     });
+    ingredients = ingredients.filter((ingredient) => ingredient !== undefined);
     const steps = dish[3].split("|").map((step) => step.trim());
     return {
       title,
