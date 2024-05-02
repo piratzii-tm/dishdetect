@@ -4,11 +4,29 @@ import { useState } from "react";
 import { Colors } from "../constants";
 import { KSpacer } from "./KSpacer";
 import { KButton } from "./KButton";
+import {
+  handleTextProcessing,
+  handleSuggestionByTextResponse,
+} from "../constants/helpers";
+import { useNavigation } from "@react-navigation/native";
 
 export const KModal = ({ modalVisible = false, setModalVisible }) => {
   const { width } = useWindowDimensions();
+  const { navigate } = useNavigation();
 
   const [text, setText] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleRequireDish = ({ dish }) => {
+    handleTextProcessing({ dish }).then((response) => {
+      let recipe = handleSuggestionByTextResponse({ response });
+      recipe["title"] = text;
+      setIsProcessing(false);
+      navigate("RecipeScreen", { recipe });
+      setText("");
+      setModalVisible(!modalVisible);
+    });
+  };
 
   return (
     <Modal
@@ -49,12 +67,14 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
             }}
           />
           <KSpacer height={30} />
-          {/*TODO: Implemente the recipe button press*/}
           <KButton
             text={"Recipe"}
             color={Colors.persian_red}
             onPress={() => {
-              setModalVisible(!modalVisible);
+              if (!isProcessing) {
+                setIsProcessing(true);
+                handleRequireDish({ dish: text });
+              }
             }}
           />
         </View>
