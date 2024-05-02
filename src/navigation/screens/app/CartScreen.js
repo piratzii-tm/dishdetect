@@ -1,5 +1,5 @@
 import { View } from "react-native-ui-lib";
-import { ShoppingListContext } from "../../../constants/contexts/ShoppingListContext";
+import { ShoppingListContext } from "../../../constants";
 import { useContext, useState } from "react";
 import { KContainer, KSpacer } from "../../../components";
 import {

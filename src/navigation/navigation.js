@@ -9,7 +9,7 @@ import {
 import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../backend/config";
+import { auth } from "../backend";
 import { ProfileScreen } from "./screens/app/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
