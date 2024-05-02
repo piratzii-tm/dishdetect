@@ -1,9 +1,11 @@
 import { handlePictureProcessing } from "./handlePictureProcessing";
-import { handleSuggestionByDish } from "./handleSuggestionByDish";
-import { handleSuggestionByIngredients } from "./handleSuggestionByIngredients";
+import { handleTextProcessing } from "./handleTextProcessing";
+import { handleSuggestionByImageResponse } from "./handleSuggestionByImageResponse";
+import { handleSuggestionByTextResponse } from "./handleSuggestionByTextResponse";
 
 export {
-  handleSuggestionByDish,
-  handleSuggestionByIngredients,
+  handleTextProcessing,
+  handleSuggestionByImageResponse,
   handlePictureProcessing,
+  handleSuggestionByTextResponse,
 };

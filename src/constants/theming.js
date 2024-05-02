@@ -8,6 +8,7 @@ export const Colors = {
   coconut_cream: "#F8F2DC",
   persian_red: "#CD4631",
   white: "#FFFFFF",
+  gray: "#5d5d5d",
 };
 
 export const Typographies = {

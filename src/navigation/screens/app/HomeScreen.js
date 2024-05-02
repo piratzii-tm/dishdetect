@@ -11,7 +11,10 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Colors } from "../../../constants";
 import { handleStorage } from "../../../backend";
-import { handlePictureProcessing } from "../../../constants/helpers";
+import {
+  handlePictureProcessing,
+  handleSuggestionByImageResponse,
+} from "../../../constants/helpers";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 
@@ -57,28 +60,10 @@ export const HomeScreen = () => {
           handlePictureProcessing({ imageUrl: imageStorageUrl }).then(
             (response) => {
               console.log("Successfully processed the image!");
-              let dishes = response.split("@");
-              dishes = dishes.map((dish) => {
-                dish = dish.split("#");
-                const title = dish[1].trim();
-                const ingredients = dish[2].split(",").map((ingredient) => {
-                  ingredient = ingredient.split("$");
-                  try {
-                    return {
-                      quantity: ingredient[0].trim(),
-                      name: ingredient[1].trim(),
-                    };
-                  } catch (err) {}
-                });
-                const steps = dish[3].split("|").map((step) => step.trim());
-                return {
-                  title,
-                  ingredients,
-                  steps,
-                };
-              });
               setIsProcessing(false);
-              navigate("RecipesNameScreen", { dishes: dishes });
+              navigate("RecipesNameScreen", {
+                dishes: handleSuggestionByImageResponse({ response }),
+              });
             },
           );
         });
@@ -163,6 +148,7 @@ export const HomeScreen = () => {
             alignItems: "center",
           }}
           onPress={handlePictureTaking}
+          disabled={modalVisible}
         >
           <View
             style={{
@@ -175,6 +161,18 @@ export const HomeScreen = () => {
             }}
           />
         </TouchableOpacity>
+        {modalVisible && (
+          <View
+            style={{
+              flex: 1,
+              position: "absolute",
+              backgroundColor: Colors.black,
+              height: height,
+              width: width,
+              opacity: 0.7,
+            }}
+          ></View>
+        )}
         <KModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       </Camera>
     </KContainer>
