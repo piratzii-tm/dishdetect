@@ -10,6 +10,7 @@ import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../backend";
+import DiscoverRecipes from "./screens/app/DiscoverRecipes";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const LoginStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="DiscoverRecipes" component={DiscoverRecipes} />
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="RecipesNameScreen" component={RecipesNameScreen} />
     <Stack.Screen name="CartScreen" component={CartScreen} />
