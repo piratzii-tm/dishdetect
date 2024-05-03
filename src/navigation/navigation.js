@@ -24,11 +24,11 @@ const LoginStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="CartScreen" component={CartScreen} />
+    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="RecipesNameScreen" component={RecipesNameScreen} />
     <Stack.Screen name="RecipeScreen" component={RecipeScreen} />
-    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+    <Stack.Screen name="CartScreen" component={CartScreen} />
     <Stack.Screen name="DiscoverRecipes" component={DiscoverRecipes} />
   </Stack.Navigator>
 );
