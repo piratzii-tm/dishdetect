@@ -1,5 +1,5 @@
 import { Text, View } from "react-native-ui-lib";
-import { KContainer, KModal } from "../../../components";
+import { KContainer, KModal, KSpacer } from "../../../components";
 import { useContext, useEffect, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
 import { Button, TouchableOpacity, useWindowDimensions } from "react-native";
@@ -12,9 +12,12 @@ import {
 } from "../../../constants/helpers";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
+import { KHomeButton } from "../../../components/KHomeButton";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export const HomeScreen = () => {
-  // TODO: Implement the modal button, and onPress => setModalVisible(true)
   const [modalVisible, setModalVisible] = useState(false);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -26,6 +29,7 @@ export const HomeScreen = () => {
   const { navigate } = useNavigation();
   const { onPressDecisionModal, setOnPressDecisionModal } =
     useContext(ShoppingListContext);
+  const { shopList, setShopList } = useContext(ShoppingListContext);
 
   useEffect(() => {
     setOnPressDecisionModal(false);
@@ -124,14 +128,37 @@ export const HomeScreen = () => {
       ref={(ref) => setCameraRef(ref)}
     >
       {isProcessing && <ProcessingView />}
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: 10,
-          paddingTop: top,
-        }}
-      >
-        {/*TODO add the top buttons inside this view*/}
+      <KSpacer height={30} />
+      <View row gap-10 paddingH-10 paddingTop={top}>
+        <KHomeButton
+          icon={
+            <MaterialCommunityIcons name={"notebook-edit-outline"} size={40} />
+          }
+          onPress={() => {
+            navigate("CartScreen");
+          }}
+          notificationCount={shopList.length}
+        />
+        <KHomeButton
+          icon={<MaterialCommunityIcons name={"chef-hat"} size={40} />}
+          onPress={() => {
+            navigate("RecipesNameScreen");
+          }}
+        />
+        <View row gap-150>
+          <KHomeButton
+            icon={<AntDesign name={"question"} size={40} />}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          />
+          <KHomeButton
+            icon={<FontAwesome name={"user-circle"} size={40} />}
+            onPress={() => {
+              navigate("ProfileScreen");
+            }}
+          />
+        </View>
       </View>
       <TouchableOpacity
         style={{
@@ -173,12 +200,13 @@ export const HomeScreen = () => {
         ></View>
       )}
       <KModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          image={require("../../../../assets/photos/tableware.png")}
-          title={"What would you like to cook today?"}
-          placeholder={"Write recipe name..."}
-        />
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        image={require("../../../../assets/photos/tableware.png")}
+        title={"What would you like to cook today?"}
+        placeholder={"Write recipe name..."}
+        buttonText={"Recipe"}
+      />
     </Camera>
   );
 };
