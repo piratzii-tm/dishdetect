@@ -31,7 +31,7 @@ export const RecipeScreen = () => {
   }, []);
 
   return (
-    <KContainer>
+    <KContainer image={require("../../../../assets/photos/background.png")}>
       <KHeader title={PARAM_RECIPE.title} />
       <View flex center>
         <View

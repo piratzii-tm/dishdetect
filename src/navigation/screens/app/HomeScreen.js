@@ -1,15 +1,10 @@
 import { Text, View } from "react-native-ui-lib";
 import { KContainer, KModal } from "../../../components";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
-import {
-  Button,
-  ImageBackground,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { Button, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors } from "../../../constants";
+import { Colors, ShoppingListContext } from "../../../constants";
 import { handleStorage } from "../../../backend";
 import {
   handlePictureProcessing,
@@ -29,7 +24,12 @@ export const HomeScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   const { height, width } = useWindowDimensions();
   const { navigate } = useNavigation();
+  const { onPressDecisionModal, setOnPressDecisionModal } =
+    useContext(ShoppingListContext);
 
+  useEffect(() => {
+    setOnPressDecisionModal(false);
+  }, []);
   if (!permission) {
     return (
       <KContainer>
@@ -172,7 +172,13 @@ export const HomeScreen = () => {
           }}
         ></View>
       )}
-      <KModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <KModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          image={require("../../../../assets/photos/tableware.png")}
+          title={"What would you like to cook today?"}
+          placeholder={"Write recipe name..."}
+        />
     </Camera>
   );
 };

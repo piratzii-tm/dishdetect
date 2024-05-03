@@ -1,7 +1,7 @@
 import { Text, View, Image } from "react-native-ui-lib";
 import { Modal, TextInput, useWindowDimensions } from "react-native";
-import { useState } from "react";
-import { Colors } from "../constants";
+import { useContext, useState } from "react";
+import { Colors, ShoppingListContext } from "../constants";
 import { KSpacer } from "./KSpacer";
 import { KButton } from "./KButton";
 import {
@@ -10,12 +10,22 @@ import {
 } from "../constants/helpers";
 import { useNavigation } from "@react-navigation/native";
 
-export const KModal = ({ modalVisible = false, setModalVisible }) => {
+export const KModal = ({
+  modalVisible = false,
+  setModalVisible,
+  title,
+  placeholder,
+  image,
+  buttonText,
+  onPress,
+}) => {
   const { width } = useWindowDimensions();
   const { navigate } = useNavigation();
 
   const [text, setText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const { onPressDecisionModal, setOnPressDecisionModal } =
+    useContext(ShoppingListContext);
 
   const handleRequireDish = ({ dish }) => {
     handleTextProcessing({ dish }).then((response) => {
@@ -26,6 +36,12 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
       setText("");
       setModalVisible(!modalVisible);
     });
+  };
+  const handleProcessing = () => {
+    if (!isProcessing) {
+      setIsProcessing(true);
+      handleRequireDish({ dish: text });
+    }
   };
 
   return (
@@ -47,18 +63,14 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
           bg-coconut_cream
           style={{ borderRadius: 10 }}
         >
-          <Image
-            source={require("../../assets/photos/tableware.png")}
-            height={70}
-            width={70}
-          />
+          <Image source={image} height={70} width={70} />
           <Text normalText black center>
-            What would you like to cook today?
+            {title}
           </Text>
           <TextInput
             value={text}
             onChangeText={setText}
-            placeholder={"Write recipe name..."}
+            placeholder={placeholder}
             style={{
               width: "90%",
               padding: 15,
@@ -68,13 +80,10 @@ export const KModal = ({ modalVisible = false, setModalVisible }) => {
           />
           <KSpacer height={30} />
           <KButton
-            text={isProcessing ? "Loading..." : "Recipe"}
+            text={isProcessing ? "Loading..." : buttonText}
             color={isProcessing ? Colors.gray : Colors.persian_red}
             onPress={() => {
-              if (!isProcessing) {
-                setIsProcessing(true);
-                handleRequireDish({ dish: text });
-              }
+              onPressDecisionModal === false ? handleProcessing() : onPress();
             }}
           />
         </View>

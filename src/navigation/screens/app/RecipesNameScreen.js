@@ -9,7 +9,7 @@ export const RecipesNameScreen = ({ route }) => {
   const { goBack } = useNavigation();
 
   return (
-    <KContainer>
+    <KContainer image={require("../../../../assets/photos/background.png")}>
       <TouchableOpacity
         onPress={() => goBack()}
         style={{ paddingHorizontal: 20, paddingVertical: 10 }}
