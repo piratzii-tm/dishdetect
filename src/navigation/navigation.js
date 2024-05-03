@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../backend";
 import { ProfileScreen } from "./screens/app/ProfileScreen";
+import DiscoverRecipes from "./screens/app/DiscoverRecipes";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ const AppStack = () => (
     <Stack.Screen name="RecipeScreen" component={RecipeScreen} />
     <Stack.Screen name="CartScreen" component={CartScreen} />
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+    <Stack.Screen name="DiscoverRecipes" component={DiscoverRecipes} />
   </Stack.Navigator>
 );
 

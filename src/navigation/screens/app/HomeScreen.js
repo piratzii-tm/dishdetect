@@ -115,72 +115,70 @@ export const HomeScreen = () => {
   );
 
   return (
-    <KContainer safeArea={false}>
-      <Camera
+    <Camera
+      style={{
+        flex: 1,
+      }}
+      type={CameraType.back}
+      autoFocus={true}
+      ref={(ref) => setCameraRef(ref)}
+    >
+      {isProcessing && <ProcessingView />}
+      <View
         style={{
-          flex: 1,
+          flexDirection: "row",
+          paddingHorizontal: 10,
+          paddingTop: top,
         }}
-        type={CameraType.back}
-        autoFocus={true}
-        ref={(ref) => setCameraRef(ref)}
       >
-        {isProcessing && <ProcessingView />}
+        {/*TODO add the top buttons inside this view*/}
+      </View>
+      <TouchableOpacity
+        style={{
+          height: 80,
+          width: 80,
+          borderRadius: 50,
+          backgroundColor: Colors.white,
+          opacity: 0.95,
+          position: "absolute",
+          bottom: bottom + 20,
+          alignSelf: "center",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onPress={handlePictureTaking}
+        disabled={modalVisible}
+      >
         <View
           style={{
-            flexDirection: "row",
-            paddingHorizontal: 10,
-            paddingTop: top,
-          }}
-        >
-          {/*TODO add the top buttons inside this view*/}
-        </View>
-        <TouchableOpacity
-          style={{
-            height: 80,
-            width: 80,
+            height: 70,
+            width: 70,
             borderRadius: 50,
+            borderColor: Colors.black,
+            borderWidth: 1,
             backgroundColor: Colors.white,
-            opacity: 0.95,
-            position: "absolute",
-            bottom: bottom + 20,
-            alignSelf: "center",
-            justifyContent: "center",
-            alignItems: "center",
           }}
-          onPress={handlePictureTaking}
-          disabled={modalVisible}
-        >
-          <View
-            style={{
-              height: 70,
-              width: 70,
-              borderRadius: 50,
-              borderColor: Colors.black,
-              borderWidth: 1,
-              backgroundColor: Colors.white,
-            }}
-          />
-        </TouchableOpacity>
-        {modalVisible && (
-          <View
-            style={{
-              flex: 1,
-              position: "absolute",
-              backgroundColor: Colors.black,
-              height: height,
-              width: width,
-              opacity: 0.7,
-            }}
-          ></View>
-        )}
-        <KModal
+        />
+      </TouchableOpacity>
+      {modalVisible && (
+        <View
+          style={{
+            flex: 1,
+            position: "absolute",
+            backgroundColor: Colors.black,
+            height: height,
+            width: width,
+            opacity: 0.7,
+          }}
+        ></View>
+      )}
+      <KModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           image={require("../../../../assets/photos/tableware.png")}
           title={"What would you like to cook today?"}
           placeholder={"Write recipe name..."}
         />
-      </Camera>
-    </KContainer>
+    </Camera>
   );
 };

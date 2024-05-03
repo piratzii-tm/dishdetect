@@ -4,6 +4,7 @@ import {
   KContainer,
   KSpacer,
   KCheckIngredients,
+  KHeader,
 } from "../../../components";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -16,7 +17,6 @@ import { findSavedRecipe, handleRecipeSave } from "../../../backend";
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
   const route = useRoute();
-  const { goBack } = useNavigation();
 
   const { shopList, setShopList } = useContext(ShoppingListContext);
   const [currentList, setCurrentList] = useState([]);
@@ -32,12 +32,7 @@ export const RecipeScreen = () => {
 
   return (
     <KContainer image={require("../../../../assets/photos/background.png")}>
-      <TouchableOpacity
-        onPress={() => goBack()}
-        style={{ paddingHorizontal: 20, paddingVertical: 10 }}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} size={20} />
-      </TouchableOpacity>
+      <KHeader title={PARAM_RECIPE.title} />
       <View flex center>
         <View
           bg-coconut_cream

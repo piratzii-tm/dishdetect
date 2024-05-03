@@ -5,3 +5,5 @@ export * from "./KModal";
 export * from "./KRecipeNameCard";
 export * from "./KSpacer";
 export * from "./KTextInput";
+export * from "./KDiscoverRecipe";
+export * from "./KHeader";
