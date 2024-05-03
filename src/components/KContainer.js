@@ -1,6 +1,7 @@
 import {
   ImageBackground,
   KeyboardAvoidingView,
+  Platform,
   ScrollView,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -16,7 +17,10 @@ export const KContainer = ({
   const insets = useSafeAreaInsets();
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={{ flex: 1 }}
+    >
       <ImageBackground source={image} resizeMode="cover" style={{ flex: 1 }}>
         {scrollable ? (
           <ScrollView

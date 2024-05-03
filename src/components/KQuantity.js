@@ -39,18 +39,19 @@ export const KQuantity = ({ name, quantity }) => {
                 "Are you sure you want to delete this ingredient?",
                 [
                   {
-                    text: "no",
+                    text: "No",
                     onPress: () => console.log("Cancel Pressed"),
                   },
                   //TODO: trebuie sterse ingredientele din baza de date
                   {
-                    text: "yes",
+                    text: "Yes",
+                    style: "destructive",
                     onPress: () => {
                       const updatedList = shopList.filter(
                         (item) => item.name !== name,
                       );
                       setShopList(updatedList);
-                      Alert.alert("Ingredient deleted successfully!");
+                      console.log("Ingredient deleted successfully!");
                     },
                   },
                 ],
