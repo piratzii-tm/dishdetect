@@ -15,7 +15,7 @@ import LottieView from "lottie-react-native";
 
 export const HomeScreen = () => {
   // TODO: Implement the modal button, and onPress => setModalVisible(true)
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -24,12 +24,7 @@ export const HomeScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   const { height, width } = useWindowDimensions();
   const { navigate } = useNavigation();
-  const { onPressDecisionModal, setOnPressDecisionModal } =
-    useContext(ShoppingListContext);
 
-  useEffect(() => {
-    setOnPressDecisionModal(false);
-  }, []);
   if (!permission) {
     return (
       <KContainer>
@@ -173,12 +168,14 @@ export const HomeScreen = () => {
         ></View>
       )}
       <KModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          image={require("../../../../assets/photos/tableware.png")}
-          title={"What would you like to cook today?"}
-          placeholder={"Write recipe name..."}
-        />
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        isForProfile={false}
+        image={require("../../../../assets/photos/tableware.png")}
+        title={"What would you like to cook today?"}
+        placeholder={"Write recipe name..."}
+        buttonText={"Get recipe"}
+      />
     </Camera>
   );
 };

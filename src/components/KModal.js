@@ -18,14 +18,13 @@ export const KModal = ({
   image,
   buttonText,
   onPress,
+  isForProfile = true,
 }) => {
   const { width } = useWindowDimensions();
   const { navigate } = useNavigation();
 
   const [text, setText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const { onPressDecisionModal, setOnPressDecisionModal } =
-    useContext(ShoppingListContext);
 
   const handleRequireDish = ({ dish }) => {
     handleTextProcessing({ dish }).then((response) => {
@@ -37,6 +36,7 @@ export const KModal = ({
       setModalVisible(!modalVisible);
     });
   };
+
   const handleProcessing = () => {
     if (!isProcessing) {
       setIsProcessing(true);
@@ -83,7 +83,7 @@ export const KModal = ({
             text={isProcessing ? "Loading..." : buttonText}
             color={isProcessing ? Colors.gray : Colors.persian_red}
             onPress={() => {
-              onPressDecisionModal === false ? handleProcessing() : onPress();
+              isForProfile === false ? handleProcessing() : onPress();
             }}
           />
         </View>
