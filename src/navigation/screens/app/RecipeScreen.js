@@ -31,7 +31,7 @@ export const RecipeScreen = () => {
   }, []);
 
   return (
-    <KContainer>
+    <KContainer image={require("../../../../assets/photos/background.png")}>
       <TouchableOpacity
         onPress={() => goBack()}
         style={{ paddingHorizontal: 20, paddingVertical: 10 }}

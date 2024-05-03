@@ -23,26 +23,29 @@ const LoginStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="CartScreen" component={CartScreen} />
+
+    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="RecipesNameScreen" component={RecipesNameScreen} />
-    <Stack.Screen name="CartScreen" component={CartScreen} />
     <Stack.Screen name="RecipeScreen" component={RecipeScreen} />
-    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
   </Stack.Navigator>
 );
 
 const Navigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(user !== null);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     setIsLoggedIn(user !== null);
+  //   });
+  // }, []);
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AppStack /> : <LoginStack />}
+      {/*{isLoggedIn ? <AppStack /> : <LoginStack />}*/}
+      <AppStack />
     </NavigationContainer>
   );
 };

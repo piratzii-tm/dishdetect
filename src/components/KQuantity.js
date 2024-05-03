@@ -3,7 +3,7 @@ import { Text, View } from "react-native-ui-lib";
 import { Alert, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useContext } from "react";
-import { ShoppingListContext } from "../constants/contexts/ShoppingListContext";
+import { ShoppingListContext } from "../constants";
 
 export const KQuantity = ({ name, quantity }) => {
   const { shopList, setShopList } = useContext(ShoppingListContext);
@@ -20,7 +20,7 @@ export const KQuantity = ({ name, quantity }) => {
           {name}
         </Text>
       </View>
-      <View flex-1 centerV gap-10 row>
+      <View flex-1 centerV gap-10 row right>
         <TouchableOpacity
           style={{ backgroundColor: Colors.white, borderRadius: 3 }}
           onPress={() => {

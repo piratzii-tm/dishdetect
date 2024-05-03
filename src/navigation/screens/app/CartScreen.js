@@ -5,7 +5,6 @@ import { KContainer, KSpacer } from "../../../components";
 import {
   Alert,
   KeyboardAvoidingView,
-  ScrollView,
   TextInput,
   TouchableOpacity,
 } from "react-native";
@@ -19,19 +18,14 @@ export const CartScreen = () => {
   const [addIngredient, setAddIngredient] = useState("");
 
   return (
-    <KContainer scrollable={false}>
+    <>
       <KeyboardAvoidingView behavior={"padding"} style={{ flex: 1 }}>
-        <KSpacer height={60} />
-        <View style={{ flex: 1 }}>
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              alignItems: "center",
-              gap: 20,
-              paddingVertical: 20,
-            }}
-            automaticallyAdjustKeyboardInsets={true}
-          >
+        <KContainer
+          scrollable={true}
+          image={require("../../../../assets/photos/background.png")}
+        >
+          <KSpacer height={60} />
+          <View centerH gap-20>
             {shopList.map((ingredient, index) => {
               return (
                 <KQuantity
@@ -41,8 +35,9 @@ export const CartScreen = () => {
                 />
               );
             })}
-          </ScrollView>
-        </View>
+          </View>
+          <KSpacer height={120} />
+        </KContainer>
         <View padding-20 bg-coconut_cream absB row>
           <TextInput
             onChangeText={setAddIngredient}
@@ -85,6 +80,6 @@ export const CartScreen = () => {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </KContainer>
+    </>
   );
 };

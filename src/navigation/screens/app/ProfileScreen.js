@@ -1,15 +1,12 @@
-import { KProfileContainer } from "../../../components/KProfileContainer";
 import { Image, Text, View } from "react-native-ui-lib";
-import { KButton, KModal, KSpacer } from "../../../components";
+import { KButton, KContainer, KModal, KSpacer } from "../../../components";
 import { KSettings } from "../../../components/KSettings";
-import { Colors } from "../../../constants";
+import { Colors, ShoppingListContext } from "../../../constants";
 import { auth } from "../../../backend/config";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export const ProfileScreen = () => {
   //TODO: trebuie puse numele si email-ul user-ului curent
-  //TODO: am pus modal la change name, trebuie facuta logica la modal,
-  // adica sa modifice numele in baza de date
 
   const chefImage = require("../../../../assets/photos/chef.png");
   const [modalVisible, setModalVisible] = useState(false);
@@ -18,9 +15,18 @@ export const ProfileScreen = () => {
   darkMode
     ? (iconName = "toggle-switch")
     : (iconName = "toggle-switch-off-outline");
+  const { onPressDecisionModal, setOnPressDecisionModal } =
+    useContext(ShoppingListContext);
+
+  useEffect(() => {
+    setOnPressDecisionModal(true);
+  }, []);
 
   return (
-    <KProfileContainer scrollable={false}>
+    <KContainer
+      scrollable={false}
+      image={require("../../../../assets/photos/whiteBlurBg.png")}
+    >
       <View flex center>
         <View gap-10 flex-1 center>
           <KSpacer height={50} />
@@ -38,12 +44,17 @@ export const ProfileScreen = () => {
             }}
           />
           <KModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
             image={require("../../../../assets/photos/user.png")}
             title={"Write down your new name:"}
             placeholder={"New name..."}
             buttonText={"Change"}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
+            onPress={() => {
+              //TODO: am pus modal la change name, trebuie facuta logica la modal, adica sa modifice numele in baza
+              // de date
+              setModalVisible(false);
+            }}
           />
           <KSettings
             text={"Dark mode"}
@@ -64,6 +75,6 @@ export const ProfileScreen = () => {
           <KSpacer height={50} />
         </View>
       </View>
-    </KProfileContainer>
+    </KContainer>
   );
 };

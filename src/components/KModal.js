@@ -1,7 +1,7 @@
 import { Text, View, Image } from "react-native-ui-lib";
 import { Modal, TextInput, useWindowDimensions } from "react-native";
-import { useState } from "react";
-import { Colors } from "../constants";
+import { useContext, useState } from "react";
+import { Colors, ShoppingListContext } from "../constants";
 import { KSpacer } from "./KSpacer";
 import { KButton } from "./KButton";
 import {
@@ -17,12 +17,15 @@ export const KModal = ({
   placeholder,
   image,
   buttonText,
+  onPress,
 }) => {
   const { width } = useWindowDimensions();
   const { navigate } = useNavigation();
 
   const [text, setText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const { onPressDecisionModal, setOnPressDecisionModal } =
+    useContext(ShoppingListContext);
 
   const handleRequireDish = ({ dish }) => {
     handleTextProcessing({ dish }).then((response) => {
@@ -33,6 +36,12 @@ export const KModal = ({
       setText("");
       setModalVisible(!modalVisible);
     });
+  };
+  const handleProcessing = () => {
+    if (!isProcessing) {
+      setIsProcessing(true);
+      handleRequireDish({ dish: text });
+    }
   };
 
   return (
@@ -74,10 +83,7 @@ export const KModal = ({
             text={isProcessing ? "Loading..." : buttonText}
             color={isProcessing ? Colors.gray : Colors.persian_red}
             onPress={() => {
-              if (!isProcessing) {
-                setIsProcessing(true);
-                handleRequireDish({ dish: text });
-              }
+              onPressDecisionModal === false ? handleProcessing() : onPress();
             }}
           />
         </View>

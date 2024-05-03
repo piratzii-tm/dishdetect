@@ -11,16 +11,13 @@ export const KContainer = ({
   scrollable = true,
   safeArea = true,
   style = undefined,
+  image,
 }) => {
   const insets = useSafeAreaInsets();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
-      <ImageBackground
-        source={require("../../assets/photos/background.png")}
-        resizeMode="cover"
-        style={{ flex: 1 }}
-      >
+      <ImageBackground source={image} resizeMode="cover" style={{ flex: 1 }}>
         {scrollable ? (
           <ScrollView
             showsVerticalScrollIndicator={false}
