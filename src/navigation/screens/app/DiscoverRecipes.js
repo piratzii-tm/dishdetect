@@ -1,4 +1,4 @@
-import { KContainer, KDiscoverRecipe } from "../../../components";
+import { KContainer, KDiscoverRecipe, KHeader } from "../../../components";
 import { useEffect, useState } from "react";
 import { handleRecipeDiscovery } from "../../../constants/helpers";
 import { TouchableOpacity } from "react-native";
@@ -18,21 +18,9 @@ const DiscoverRecipes = () => {
     );
   }, []);
 
-  const { goBack } = useNavigation();
-
   return (
     <KContainer>
-      <View row spread centerV marginB-50>
-        <TouchableOpacity
-          onPress={() => goBack()}
-          style={{ paddingHorizontal: 20, paddingVertical: 10 }}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} size={26} />
-        </TouchableOpacity>
-        <Text largeText style={{ paddingHorizontal: 20 }}>
-          Discover Recipes
-        </Text>
-      </View>
+      <KHeader title={"Discover Recipes"} />
       {recipes.length === 0 ? (
         <View flex center>
           <LottieView
