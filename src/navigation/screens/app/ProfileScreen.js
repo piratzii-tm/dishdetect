@@ -6,18 +6,19 @@ import {
   KSpacer,
   KIconButton,
 } from "../../../components";
-import { auth } from "../../../backend";
-import { useEffect, useState } from "react";
+import { auth, changeUsername } from "../../../backend";
+import { useContext, useEffect, useState } from "react";
 import { Colors } from "../../../constants";
-import { TouchableOpacity, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
+import { UserProvider } from "../../../constants/contexts/UserProvider";
 
 export const ProfileScreen = () => {
-  //TODO: trebuie puse numele si email-ul user-ului curent
-
   const chefImage = require("../../../../assets/photos/chef.png");
   const [modalVisible, setModalVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [iconName, setIconName] = useState("toggle-switch-off-outline");
+
+  const { userData } = useContext(UserProvider);
 
   useEffect(() => {
     setIconName(darkMode ? "toggle-switch" : "toggle-switch-off-outline");
@@ -35,8 +36,8 @@ export const ProfileScreen = () => {
           <KSpacer height={50} />
           <Image width={125} height={125} source={chefImage} />
           <KSpacer height={10} />
-          <Text largeText>Name</Text>
-          <Text normalText>user email</Text>
+          <Text largeText>{userData.username}</Text>
+          <Text normalText>{userData.email}</Text>
         </View>
         <View flex centerV>
           <KIconButton
@@ -70,9 +71,8 @@ export const ProfileScreen = () => {
         title={"How should we call you?"}
         placeholder={"Your new username..."}
         buttonText={"Change"}
-        onPress={() => {
-          //TODO: am pus modal la change name, trebuie facuta logica la modal, adica sa modifice numele in baza
-          // de date
+        onPress={(username) => {
+          changeUsername({ username });
           setModalVisible(false);
         }}
       />

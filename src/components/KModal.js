@@ -100,7 +100,14 @@ export const KModal = ({
               text={isProcessing ? "Loading..." : buttonText}
               color={isProcessing ? Colors.gray : Colors.persian_red}
               onPress={() => {
-                isForProfile === false ? handleProcessing() : onPress();
+                {
+                  if (isForProfile === false) {
+                    handleProcessing();
+                  } else {
+                    onPress(text);
+                  }
+                  setText("");
+                }
               }}
             />
           </View>
