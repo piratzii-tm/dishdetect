@@ -7,12 +7,10 @@ import {
   RecipesNameScreen,
 } from "./screens/app";
 import { AuthScreen, VerifyMailScreen } from "./screens/auth";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../backend";
+import { useContext } from "react";
 import { ProfileScreen } from "./screens/app/ProfileScreen";
 import DiscoverRecipes from "./screens/app/DiscoverRecipes";
-import GeneralScreen from "./screens/app/GeneralScreen";
+import { AuthProvider } from "../constants/contexts/AuthProvider";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +23,6 @@ const LoginStack = () => (
 
 const AppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="GeneralScreen" component={GeneralScreen} />
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     <Stack.Screen name="RecipesNameScreen" component={RecipesNameScreen} />
@@ -36,17 +33,10 @@ const AppStack = () => (
 );
 
 const Navigation = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(user !== null);
-    });
-  }, []);
-
+  const { isLogged } = useContext(AuthProvider);
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AppStack /> : <LoginStack />}
+      {isLogged ? <AppStack /> : <LoginStack />}
     </NavigationContainer>
   );
 };

@@ -12,6 +12,7 @@ import {
 import { Colors, Typographies } from "../../../constants";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { KQuantity } from "../../../components/KQuantity";
+import { updateShoppingCart } from "../../../backend";
 
 export const CartScreen = () => {
   const { shopList, setShopList } = useContext(ShoppingListContext);
@@ -24,7 +25,7 @@ export const CartScreen = () => {
         <KHeader title={"Shopping list"} />
         <KSpacer height={60} />
         <View centerH gap-20>
-          {shopList.map((ingredient, index) => {
+          {shopList.slice(1).map((ingredient, index) => {
             return (
               <KQuantity
                 key={index}
@@ -56,6 +57,7 @@ export const CartScreen = () => {
         <TouchableOpacity
           onPress={() => {
             if (addIngredient.trim() !== "") {
+              let aux = shopList;
               if (
                 !shopList.find(
                   (ingredient) => ingredient.name === addIngredient,
@@ -65,6 +67,8 @@ export const CartScreen = () => {
                   ...prevShopList,
                   { name: addIngredient.trim(), amount: 1 },
                 ]);
+                aux = [...aux, { name: addIngredient.trim(), amount: 1 }];
+                updateShoppingCart({ shopList: aux });
                 setAddIngredient("");
                 console.log("Ingredient added successfully!");
               } else {

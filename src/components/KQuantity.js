@@ -4,6 +4,7 @@ import { Alert, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useContext } from "react";
 import { ShoppingListContext } from "../constants";
+import { updateShoppingCart } from "../backend";
 
 export const KQuantity = ({ name, quantity }) => {
   const { shopList, setShopList } = useContext(ShoppingListContext);
@@ -32,6 +33,7 @@ export const KQuantity = ({ name, quantity }) => {
                 return item;
               });
               setShopList(updatedList);
+              updateShoppingCart({ shopList: updatedList });
               quantity--;
             } else if (quantity === 1) {
               Alert.alert(
@@ -42,7 +44,6 @@ export const KQuantity = ({ name, quantity }) => {
                     text: "No",
                     onPress: () => console.log("Cancel Pressed"),
                   },
-                  //TODO: trebuie sterse ingredientele din baza de date
                   {
                     text: "Yes",
                     style: "destructive",
@@ -51,6 +52,7 @@ export const KQuantity = ({ name, quantity }) => {
                         (item) => item.name !== name,
                       );
                       setShopList(updatedList);
+                      updateShoppingCart({ shopList: updatedList });
                       console.log("Ingredient deleted successfully!");
                     },
                   },
@@ -76,6 +78,7 @@ export const KQuantity = ({ name, quantity }) => {
               return item;
             });
             setShopList(updatedList);
+            updateShoppingCart({ shopList: updatedList });
             quantity++;
           }}
         >

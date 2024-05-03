@@ -5,6 +5,7 @@ import { handleRecipeSave } from "./database/handleRecipeSave";
 import { findSavedRecipe } from "./database/findSavedRecipe";
 import { retrieveUserData } from "./database/retrieveUserData";
 import { changeUsername } from "./database/changeUsername";
+import { updateShoppingCart } from "./database/updateShoppingCart";
 
 export {
   handleLogin,
@@ -14,5 +15,6 @@ export {
   findSavedRecipe,
   retrieveUserData,
   changeUsername,
+  updateShoppingCart,
 };
 export * from "./config";

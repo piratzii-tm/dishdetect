@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import { Colors } from "../../../constants";
 import { useWindowDimensions } from "react-native";
 import { UserProvider } from "../../../constants/contexts/UserProvider";
+import { signOut } from "firebase/auth";
 
 export const ProfileScreen = () => {
   const chefImage = require("../../../../assets/photos/chef.png");
