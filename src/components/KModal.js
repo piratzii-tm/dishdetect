@@ -6,13 +6,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useState } from "react";
-import { Colors } from "../constants";
-import { KSpacer } from "./KSpacer";
-import { KButton } from "./KButton";
 import {
+  Colors,
   handleTextProcessing,
   handleSuggestionByTextResponse,
-} from "../constants/helpers";
+} from "../constants";
+import { KSpacer } from "./KSpacer";
+import { KButton } from "./KButton";
 import { useNavigation } from "@react-navigation/native";
 
 export const KModal = ({

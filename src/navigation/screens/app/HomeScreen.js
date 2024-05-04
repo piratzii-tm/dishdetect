@@ -1,21 +1,21 @@
 import { Text, View } from "react-native-ui-lib";
-import { KContainer, KModal, KSpacer } from "../../../components";
-import { useContext, useEffect, useState } from "react";
+import { KContainer, KModal, KSpacer, KHomeButton } from "../../../components";
+import { useContext, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
 import { Button, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors, ShoppingListContext } from "../../../constants";
-import { handleStorage } from "../../../backend";
 import {
+  Colors,
+  ShoppingListContext,
   handlePictureProcessing,
   handleSuggestionByImageResponse,
-} from "../../../constants/helpers";
+  MaterialCommunityIcons,
+  AntDesign,
+  FontAwesome,
+} from "../../../constants";
+import { handleStorage } from "../../../backend";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
-import { KHomeButton } from "../../../components/KHomeButton";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);

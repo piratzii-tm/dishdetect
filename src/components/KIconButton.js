@@ -1,6 +1,6 @@
 import { Text, View } from "react-native-ui-lib";
 import { TouchableOpacity } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialCommunityIcons } from "../constants";
 
 export const KIconButton = ({ text, fontName, onPress }) => {
   return (

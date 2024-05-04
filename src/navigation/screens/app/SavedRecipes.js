@@ -1,12 +1,14 @@
 import { KContainer, KHeader } from "../../../components";
 import { useContext } from "react";
-import { UserProvider } from "../../../constants/contexts/UserProvider";
 import { View, Text } from "react-native-ui-lib";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Colors } from "../../../constants";
+import {
+  Colors,
+  UserProvider,
+  FontAwesomeIcon,
+  faArrowRight,
+} from "../../../constants";
 
 export const SavedRecipes = () => {
   const { userData } = useContext(UserProvider);

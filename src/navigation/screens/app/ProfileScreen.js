@@ -8,9 +8,8 @@ import {
 } from "../../../components";
 import { auth, changeUsername } from "../../../backend";
 import { useContext, useEffect, useState } from "react";
-import { Colors } from "../../../constants";
 import { useWindowDimensions } from "react-native";
-import { UserProvider } from "../../../constants/contexts/UserProvider";
+import { UserProvider, Colors } from "../../../constants";
 import { signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 

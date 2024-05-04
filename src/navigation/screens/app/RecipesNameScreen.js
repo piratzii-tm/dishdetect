@@ -1,13 +1,12 @@
 import { View } from "react-native-ui-lib";
-import { KContainer, KRecipeNameCard, KSpacer } from "../../../components";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { KContainer, KRecipeNameCard } from "../../../components";
+import { FontAwesomeIcon, faArrowLeft } from "../../../constants";
 
 export const RecipesNameScreen = ({ route }) => {
   const { goBack } = useNavigation();
-
   return (
     <KContainer image={require("../../../../assets/photos/background.png")}>
       <TouchableOpacity

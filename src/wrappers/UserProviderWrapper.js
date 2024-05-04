@@ -1,8 +1,7 @@
-import { UserProvider } from "../constants/contexts/UserProvider";
+import { UserProvider, AuthProvider } from "../constants";
 import { useContext, useEffect, useState } from "react";
 import { auth, database, retrieveUserData } from "../backend";
 import { ref, onValue } from "firebase/database";
-import { AuthProvider } from "../constants/contexts/AuthProvider";
 
 export const UserProviderWrapper = ({ children }) => {
   const [userData, setUserData] = useState();

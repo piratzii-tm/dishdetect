@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ShoppingListContext } from "../constants";
-import { UserProvider } from "../constants/contexts/UserProvider";
-import { AuthProvider } from "../constants/contexts/AuthProvider";
+import { UserProvider, AuthProvider, ShoppingListContext } from "../constants";
 import { retrieveUserData } from "../backend";
 
 export const ShoppingProviderWrapper = ({ children }) => {

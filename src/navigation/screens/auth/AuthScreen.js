@@ -1,10 +1,12 @@
 import { Image, Text, View } from "react-native-ui-lib";
-import { KButton, KContainer, KSpacer } from "../../../components";
-import { KTextInput } from "../../../components";
-import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons/faEnvelope";
-import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import { Colors, emailjs } from "../../../constants";
+import { KButton, KContainer, KSpacer, KTextInput } from "../../../components";
+import {
+  Colors,
+  emailjs,
+  faLock,
+  faUser,
+  faEnvelope,
+} from "../../../constants";
 import { useWindowDimensions } from "react-native";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";

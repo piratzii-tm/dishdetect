@@ -1,17 +1,13 @@
 import { View } from "react-native-ui-lib";
-import { ShoppingListContext } from "../../../constants";
-import { useContext, useState } from "react";
-import { KContainer, KHeader, KSpacer } from "../../../components";
 import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Colors, Typographies } from "../../../constants";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import { KQuantity } from "../../../components/KQuantity";
+  ShoppingListContext,
+  Colors,
+  Typographies,
+  AntDesign,
+} from "../../../constants";
+import { useContext, useState } from "react";
+import { KContainer, KHeader, KSpacer, KQuantity } from "../../../components";
+import { TextInput, TouchableOpacity } from "react-native";
 import { updateShoppingCart } from "../../../backend";
 
 export const CartScreen = () => {

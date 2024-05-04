@@ -1,6 +1,5 @@
 import { View } from "react-native-ui-lib";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Colors, Typographies } from "../constants";
+import { Colors, Typographies, FontAwesomeIcon } from "../constants";
 import { TextInput } from "react-native";
 
 export const KTextInput = ({ icon, placeholder, text, setText }) => {
