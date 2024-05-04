@@ -8,7 +8,7 @@ import { Text, View } from "react-native-ui-lib";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 
-const DiscoverRecipes = () => {
+export const DiscoverRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   //TODO change to developer:false when presenting
@@ -47,5 +47,3 @@ const DiscoverRecipes = () => {
     </KContainer>
   );
 };
-
-export default DiscoverRecipes;

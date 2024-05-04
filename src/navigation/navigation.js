@@ -5,11 +5,12 @@ import {
   RecipeScreen,
   HomeScreen,
   RecipesNameScreen,
+  SavedRecipes,
+  DiscoverRecipes,
+  ProfileScreen,
 } from "./screens/app";
 import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 import { useContext } from "react";
-import { ProfileScreen } from "./screens/app/ProfileScreen";
-import DiscoverRecipes from "./screens/app/DiscoverRecipes";
 import { AuthProvider } from "../constants/contexts/AuthProvider";
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const AppStack = () => (
     <Stack.Screen name="RecipeScreen" component={RecipeScreen} />
     <Stack.Screen name="CartScreen" component={CartScreen} />
     <Stack.Screen name="DiscoverRecipes" component={DiscoverRecipes} />
+    <Stack.Screen name="SavedRecipes" component={SavedRecipes} />
   </Stack.Navigator>
 );
 

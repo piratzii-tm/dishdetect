@@ -12,6 +12,7 @@ import { Colors } from "../../../constants";
 import { useWindowDimensions } from "react-native";
 import { UserProvider } from "../../../constants/contexts/UserProvider";
 import { signOut } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export const ProfileScreen = () => {
   const chefImage = require("../../../../assets/photos/chef.png");
@@ -20,6 +21,7 @@ export const ProfileScreen = () => {
   const [iconName, setIconName] = useState("toggle-switch-off-outline");
 
   const { userData } = useContext(UserProvider);
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     setIconName(darkMode ? "toggle-switch" : "toggle-switch-off-outline");
@@ -52,7 +54,7 @@ export const ProfileScreen = () => {
             text={"Saved recipes"}
             fontName={"bookmark"}
             onPress={() => {
-              setModalVisible(true);
+              navigate("SavedRecipes");
             }}
           />
           {/*TODO uncomment when implementing the dark mode feature*/}
