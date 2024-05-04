@@ -15,6 +15,7 @@ import {
   findSavedRecipe,
   handleRecipeSave,
 } from "../../../backend";
+import { UserProvider } from "../../../constants/contexts/UserProvider";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
@@ -52,6 +53,13 @@ export const RecipeScreen = () => {
           <View center gap-10>
             {PARAM_RECIPE.ingredients.map((item) => {
               const [isChecked, setChecked] = useState(false);
+
+              // TODO uncomment if we want the item already added in the shopping list to be checked
+              // useEffect(() => {
+              //   setChecked(
+              //     shopList.map((item) => item.name).includes(item.name),
+              //   );
+              // }, []);
 
               return (
                 <KCheckIngredients

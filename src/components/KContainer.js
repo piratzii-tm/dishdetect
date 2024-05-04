@@ -12,7 +12,7 @@ export const KContainer = ({
   scrollable = true,
   safeArea = true,
   style = undefined,
-  image,
+  image = require("../../assets/photos/background.png"),
 }) => {
   const insets = useSafeAreaInsets();
 
