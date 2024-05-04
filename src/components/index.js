@@ -8,3 +8,5 @@ export * from "./KTextInput";
 export * from "./KDiscoverRecipe";
 export * from "./KHeader";
 export * from "./KIconButton";
+export * from "./KQuantity";
+export * from "./KHomeButton";

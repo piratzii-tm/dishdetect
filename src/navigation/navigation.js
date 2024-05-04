@@ -11,7 +11,7 @@ import {
 } from "./screens/app";
 import { AuthScreen, VerifyMailScreen } from "./screens/auth";
 import { useContext } from "react";
-import { AuthProvider } from "../constants/contexts/AuthProvider";
+import { AuthProvider } from "../constants";
 
 const Stack = createNativeStackNavigator();
 

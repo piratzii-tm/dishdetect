@@ -1,11 +1,7 @@
 import { KContainer, KDiscoverRecipe, KHeader } from "../../../components";
 import { useEffect, useState } from "react";
-import { handleRecipeDiscovery } from "../../../constants/helpers";
-import { TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { handleRecipeDiscovery } from "../../../constants";
 import { Text, View } from "react-native-ui-lib";
-import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 
 export const DiscoverRecipes = () => {

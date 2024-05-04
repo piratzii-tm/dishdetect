@@ -1,9 +1,7 @@
-import { Colors } from "../constants";
 import { Text, View } from "react-native-ui-lib";
 import { Alert, TouchableOpacity } from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { useContext } from "react";
-import { ShoppingListContext } from "../constants";
+import { ShoppingListContext, Colors, AntDesign } from "../constants";
 import { updateShoppingCart } from "../backend";
 
 export const KQuantity = ({ name, quantity }) => {

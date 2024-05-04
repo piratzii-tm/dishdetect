@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, retrieveUserData } from "../backend";
+import { auth } from "../backend";
 import { useEffect, useState } from "react";
-import { AuthProvider } from "../constants/contexts/AuthProvider";
+import { AuthProvider } from "../constants";
 
 export const AuthWrapper = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);

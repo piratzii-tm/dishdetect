@@ -1,7 +1,6 @@
 import { Text, View } from "react-native-ui-lib";
 import { TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { faArrowLeft, FontAwesomeIcon } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 
 export const KHeader = ({ title }) => {

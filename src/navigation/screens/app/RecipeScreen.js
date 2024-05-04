@@ -15,7 +15,6 @@ import {
   findSavedRecipe,
   handleRecipeSave,
 } from "../../../backend";
-import { UserProvider } from "../../../constants/contexts/UserProvider";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
