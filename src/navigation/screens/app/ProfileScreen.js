@@ -49,12 +49,20 @@ export const ProfileScreen = () => {
             }}
           />
           <KIconButton
-            text={"Dark mode"}
-            fontName={iconName}
+            text={"Saved recipes"}
+            fontName={"bookmark"}
             onPress={() => {
-              setDarkMode(!darkMode);
+              setModalVisible(true);
             }}
           />
+          {/*TODO uncomment when implementing the dark mode feature*/}
+          {/*<KIconButton*/}
+          {/*  text={"Dark mode"}*/}
+          {/*  fontName={iconName}*/}
+          {/*  onPress={() => {*/}
+          {/*    setDarkMode(!darkMode);*/}
+          {/*  }}*/}
+          {/*/>*/}
         </View>
         <KButton
           text={"LogOut"}

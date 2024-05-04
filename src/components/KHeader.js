@@ -15,9 +15,11 @@ export const KHeader = ({ title }) => {
       >
         <FontAwesomeIcon icon={faArrowLeft} size={26} />
       </TouchableOpacity>
-      <Text largeText style={{ paddingHorizontal: 20 }}>
-        {title}
-      </Text>
+      <View width={"90%"} paddingH-30 right>
+        <Text largeText ellipsizeMode={"tail"} numberOfLines={1}>
+          {title}
+        </Text>
+      </View>
     </View>
   );
 };

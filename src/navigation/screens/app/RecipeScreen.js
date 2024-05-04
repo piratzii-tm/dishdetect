@@ -92,7 +92,9 @@ export const RecipeScreen = () => {
                       aux = [...aux, item];
                     }
                   });
-                  updateShoppingCart({ shopList: aux });
+                  updateShoppingCart({ shopList: aux }).then(() =>
+                    alert("Ingredients added to cart"),
+                  );
                 }
               }}
             />
