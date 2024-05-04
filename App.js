@@ -1,16 +1,24 @@
 import { configTheme } from "./src/constants";
-import { ExpoFonts } from "./src/wrappers";
+import {
+  ExpoFonts,
+  ShoppingProviderWrapper,
+  UserProviderWrapper,
+  AuthWrapper,
+} from "./src/wrappers";
 import { Navigation } from "./src/navigation";
-import { ShoppingProviderWrapper } from "./src/wrappers/ShoppingProviderWrapper";
 
 configTheme();
 
 export default function App() {
   return (
-    <ShoppingProviderWrapper>
-      <ExpoFonts>
-        <Navigation />
-      </ExpoFonts>
-    </ShoppingProviderWrapper>
+    <AuthWrapper>
+      <UserProviderWrapper>
+        <ShoppingProviderWrapper>
+          <ExpoFonts>
+            <Navigation />
+          </ExpoFonts>
+        </ShoppingProviderWrapper>
+      </UserProviderWrapper>
+    </AuthWrapper>
   );
 }

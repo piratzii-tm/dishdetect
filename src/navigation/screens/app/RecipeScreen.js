@@ -6,13 +6,15 @@ import {
   KCheckIngredients,
   KHeader,
 } from "../../../components";
-import { TouchableOpacity, useWindowDimensions } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useWindowDimensions } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { Colors, ShoppingListContext } from "../../../constants";
-import { findSavedRecipe, handleRecipeSave } from "../../../backend";
+import {
+  updateShoppingCart,
+  findSavedRecipe,
+  handleRecipeSave,
+} from "../../../backend";
 
 export const RecipeScreen = () => {
   const { width } = useWindowDimensions();
@@ -80,15 +82,19 @@ export const RecipeScreen = () => {
               text={"Add"}
               onPress={() => {
                 if (currentList.length > 0) {
+                  let aux = shopList;
                   currentList.forEach((item) => {
                     if (
-                      !shopList.find(
-                        (ingredient) => ingredient.name === item.name,
-                      )
+                      !shopList.map((item) => item.name).includes(item.name)
                     ) {
+                      console.log("Will add item");
                       setShopList((prev) => [...prev, item]);
+                      aux = [...aux, item];
                     }
                   });
+                  updateShoppingCart({ shopList: aux }).then(() =>
+                    alert("Ingredients added to cart"),
+                  );
                 }
               }}
             />

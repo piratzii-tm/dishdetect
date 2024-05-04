@@ -27,13 +27,9 @@ export const HomeScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   const { height, width } = useWindowDimensions();
   const { navigate } = useNavigation();
-  const { onPressDecisionModal, setOnPressDecisionModal } =
-    useContext(ShoppingListContext);
-  const { shopList, setShopList } = useContext(ShoppingListContext);
 
-  useEffect(() => {
-    setOnPressDecisionModal(false);
-  }, []);
+  const { shopList } = useContext(ShoppingListContext);
+
   if (!permission) {
     return (
       <KContainer>
@@ -129,36 +125,39 @@ export const HomeScreen = () => {
     >
       {isProcessing && <ProcessingView />}
       <KSpacer height={30} />
-      <View row gap-10 paddingH-10 paddingTop={top}>
-        <KHomeButton
-          icon={
-            <MaterialCommunityIcons name={"notebook-edit-outline"} size={40} />
-          }
-          onPress={() => {
-            navigate("CartScreen");
-          }}
-          notificationCount={shopList.length}
-        />
-        <KHomeButton
-          icon={<MaterialCommunityIcons name={"chef-hat"} size={40} />}
-          onPress={() => {
-            navigate("RecipesNameScreen");
-          }}
-        />
-        <View row gap-150>
+      <View row spread paddingH-10 paddingTop={top - 30}>
+        <View row gap-10>
+          <KHomeButton
+            icon={
+              <MaterialCommunityIcons
+                name={"notebook-edit-outline"}
+                size={40}
+              />
+            }
+            onPress={() => {
+              navigate("CartScreen");
+            }}
+            notificationCount={shopList.length - 1}
+          />
+          <KHomeButton
+            icon={<MaterialCommunityIcons name={"chef-hat"} size={40} />}
+            onPress={() => {
+              navigate("DiscoverRecipes");
+            }}
+          />
           <KHomeButton
             icon={<AntDesign name={"question"} size={40} />}
             onPress={() => {
               setModalVisible(true);
             }}
           />
-          <KHomeButton
-            icon={<FontAwesome name={"user-circle"} size={40} />}
-            onPress={() => {
-              navigate("ProfileScreen");
-            }}
-          />
         </View>
+        <KHomeButton
+          icon={<FontAwesome name={"user-circle"} size={40} />}
+          onPress={() => {
+            navigate("ProfileScreen");
+          }}
+        />
       </View>
       <TouchableOpacity
         style={{
@@ -187,25 +186,14 @@ export const HomeScreen = () => {
           }}
         />
       </TouchableOpacity>
-      {modalVisible && (
-        <View
-          style={{
-            flex: 1,
-            position: "absolute",
-            backgroundColor: Colors.black,
-            height: height,
-            width: width,
-            opacity: 0.7,
-          }}
-        ></View>
-      )}
       <KModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
+        isForProfile={false}
         image={require("../../../../assets/photos/tableware.png")}
         title={"What would you like to cook today?"}
         placeholder={"Write recipe name..."}
-        buttonText={"Recipe"}
+        buttonText={"Get recipe"}
       />
     </Camera>
   );

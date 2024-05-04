@@ -8,6 +8,8 @@ import { Colors, emailjs } from "../../../constants";
 import { useWindowDimensions } from "react-native";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../backend";
 
 export const AuthScreen = () => {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -139,6 +141,8 @@ export const AuthScreen = () => {
                 } else {
                   alert("Verify your credentials, something went wrong");
                 }
+              } else {
+                signInWithEmailAndPassword(auth, email, password);
               }
             }}
             color={Colors.persian_red}
