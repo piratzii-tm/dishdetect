@@ -1,7 +1,7 @@
 import { Text, View } from "react-native-ui-lib";
 import { KContainer, KModal, KSpacer, KHomeButton } from "../../../components";
 import { useContext, useState } from "react";
-import { Camera, CameraType } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { Button, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -19,7 +19,7 @@ import LottieView from "lottie-react-native";
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [cameraRef, setCameraRef] = useState(null);
@@ -115,11 +115,11 @@ export const HomeScreen = () => {
   );
 
   return (
-    <Camera
+    <CameraView
       style={{
         flex: 1,
       }}
-      type={CameraType.back}
+      type={"back"}
       autoFocus={true}
       ref={(ref) => setCameraRef(ref)}
     >
@@ -195,6 +195,6 @@ export const HomeScreen = () => {
         placeholder={"Write recipe name..."}
         buttonText={"Get recipe"}
       />
-    </Camera>
+    </CameraView>
   );
 };

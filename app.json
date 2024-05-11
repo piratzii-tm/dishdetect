@@ -32,7 +32,8 @@
         {
           "cameraPermission": "Allow DishDetect to access your camera"
         }
-      ]
+      ],
+      "expo-font"
     ]
   }
 }
