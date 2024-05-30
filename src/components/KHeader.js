@@ -7,7 +7,7 @@ export const KHeader = ({ title }) => {
   const { goBack } = useNavigation();
 
   return (
-    <View row spread centerV marginB-50>
+    <View row spread centerV marginB-20>
       <TouchableOpacity
         onPress={() => goBack()}
         style={{ paddingHorizontal: 20, paddingVertical: 10 }}

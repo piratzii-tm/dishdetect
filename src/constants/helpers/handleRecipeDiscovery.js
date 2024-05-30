@@ -1,4 +1,4 @@
-import { edamam } from "../api/edamam";
+import { edamam } from "../api";
 
 export const handleRecipeDiscovery = async ({ developer = false }) => {
   if (developer) {
@@ -32,6 +32,9 @@ export const handleRecipeDiscovery = async ({ developer = false }) => {
             recipes.push(recipe);
           }
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
