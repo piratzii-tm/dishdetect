@@ -30,6 +30,10 @@ export const HomeScreen = () => {
 
   const { shopList } = useContext(ShoppingListContext);
 
+  const [loadingMessage, setLoadingMessage] = useState(
+    "⚙️ Started processing the image",
+  );
+
   if (!permission) {
     return (
       <KContainer>
@@ -56,10 +60,12 @@ export const HomeScreen = () => {
       cameraRef.takePictureAsync().then((response) => {
         setIsProcessing(true);
         const imageUri = response.uri;
+        setLoadingMessage("📷 Started uploading the image...");
         handleStorage({ uri: imageUri }).then((imageStorageUrl) => {
+          setLoadingMessage("🤖 Started processing the image...");
           handlePictureProcessing({ imageUrl: imageStorageUrl }).then(
             (response) => {
-              console.log("Successfully processed the image!");
+              setLoadingMessage("✨ Image processed successfully!");
               setIsProcessing(false);
               navigate("RecipesNameScreen", {
                 dishes: handleSuggestionByImageResponse({ response }),
@@ -90,8 +96,8 @@ export const HomeScreen = () => {
         autoPlay
         loop
         style={{
-          height: "40%",
-          width: "60%",
+          height: "50%",
+          width: "80%",
         }}
       />
       <Text
@@ -103,13 +109,19 @@ export const HomeScreen = () => {
           paddingHorizontal: 20,
         }}
       >
-        {
-          [
-            "Stirring up mischief... ETA: Tasty results!",
-            "Cooking up chaos... Patience, it's worth the bytes!",
-            "Mixing up magic... Hungry yet?",
-          ][Math.floor(Math.random() * 3)]
-        }
+        {loadingMessage}
+      </Text>
+      <KSpacer height={20} />
+      <Text
+        style={{
+          fontFamily: "DMSans-Regular",
+          fontSize: 14,
+          color: Colors.gray,
+          textAlign: "center",
+          paddingHorizontal: 100,
+        }}
+      >
+        Image processing is taking a bit, so don't disturb the chef!
       </Text>
     </View>
   );
